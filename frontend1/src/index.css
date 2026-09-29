@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  color: #20343a;
+  background: #f5f8f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bizen-primary: #49a7a2;
+  --bizen-primary-dark: #318d89;
+  --bizen-primary-soft: #e8f6f5;
+  --bizen-bg: #f5f8f8;
+  --bizen-card: #ffffff;
+  --bizen-border: #dfeceb;
+  --bizen-text: #24363d;
+  --bizen-muted: #71848a;
+  --bizen-shadow: 0 8px 28px rgba(41, 91, 95, .07);
+  --bizen-ink: #17323a;
+  --bizen-accent: #f08a62;
+  --bizen-surface-soft: #f0f7f6;
+  --bizen-shadow-lifted: 0 18px 45px rgba(31, 72, 77, .1);
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--bizen-ink);
+  background:
+    radial-gradient(circle at 92% 4%, rgba(73, 167, 162, .1), transparent 25rem),
+    linear-gradient(145deg, #f8fbfb 0%, #eef6f5 100%);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep legacy business logic/components intact, modernize their visual language. */
+.bizen-main {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .42), transparent 28rem),
+    transparent;
+}
+
+.bizen-legacy-page {
+  width: 100% !important;
+  min-height: calc(100vh - 76px) !important;
+  padding: 26px clamp(14px, 2.4vw, 34px) 40px !important;
+  color: var(--bizen-text) !important;
+  background: linear-gradient(180deg, rgba(249,251,251,.82) 0%, rgba(244,248,248,.92) 100%) !important;
+}
+
+/* Chakra global language */
+.bizen-main .chakra-heading,
+.bizen-main h1,
+.bizen-main h2,
+.bizen-main h3 {
+  color: #2d464c;
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+}
+
+.bizen-main .chakra-button:not([data-variant='ghost']) {
+  min-height: 40px;
+  border: 0;
+  border-radius: 9px;
+  font-weight: 700;
+  box-shadow: 0 5px 12px rgba(73, 167, 162, .12);
+}
+
+.bizen-main .chakra-button[data-variant='solid'] {
+  background: var(--bizen-primary);
+}
+
+.bizen-main .chakra-button[data-variant='solid']:hover {
+  background: var(--bizen-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 9px 18px rgba(49, 141, 137, .22);
+}
+
+.bizen-main .chakra-input,
+.bizen-main .chakra-select__field,
+.bizen-main .chakra-textarea,
+.bizen-main .react-datepicker-wrapper input,
+.bizen-main .react-time-picker__wrapper,
+.bizen-main .react-date-picker__wrapper {
+  border-color: #cfe3e0 !important;
+  border-radius: 9px !important;
+  background: #fbfdfd !important;
+  color: #294047 !important;
+}
+
+.bizen-main .chakra-input:focus,
+.bizen-main .chakra-select__field:focus,
+.bizen-main .chakra-textarea:focus {
+  border-color: var(--bizen-primary) !important;
+  box-shadow: 0 0 0 3px rgba(73, 167, 162, .12) !important;
+}
+
+.bizen-main .chakra-form__label {
+  margin-bottom: 7px;
+  color: #526970;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bizen-main .chakra-table__container {
+  border: 1px solid #d5e7e4;
+  border-radius: 11px;
+  overflow: auto;
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+  -webkit-overflow-scrolling: touch;
+}
+
+.bizen-main .chakra-table {
+  color: #48636a;
+}
+
+.bizen-main .chakra-table thead tr {
+  background: #e9f5f3;
+}
+
+.bizen-main .chakra-table thead th {
+  color: #39636a;
+  font-size: 11px;
+  letter-spacing: .04em;
+  font-weight: 800;
+}
+
+.bizen-main .chakra-table tbody tr:nth-child(even) {
+  background: #fbfdfd;
+}
+
+.bizen-main .chakra-table tbody tr:hover {
+  background: #edf8f6;
+}
+
+.bizen-main .chakra-alert {
+  border-radius: 10px;
+}
+
+.bizen-main .chakra-card,
+.bizen-main [data-scope='card'] {
+  border: 1px solid var(--bizen-border);
+  border-radius: 14px;
+  box-shadow: var(--bizen-shadow);
+}
+
+/* Common legacy gray sections become clean Bizen surfaces without changing their contents. */
+.bizen-main [class*='chakra-stack'] > .chakra-box,
+.bizen-main [class*='chakra-flex'] > .chakra-box {
+  border-radius: 12px;
+}
+
+.bizen-main .chakra-modal__content {
+  border: 1px solid var(--bizen-border);
+  border-radius: 16px;
+  box-shadow: var(--bizen-shadow-lifted);
+}
+
+.bizen-main .chakra-menu__menu-list,
+.bizen-main .chakra-popover__content {
+  border: 1px solid var(--bizen-border);
+  border-radius: 12px;
+  box-shadow: var(--bizen-shadow-lifted);
+}
+
+/* Existing Excel / pagination / confirmation styles remain supported. */
+.pagination {
+  list-style: none;
+  min-height: 31.5px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 0;
+}
+
+.page-item {
+  list-style: none;
+  padding: 2px 12px;
+  height: 31.5px;
+  width: 31.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.active {
+  background-color: var(--bizen-primary);
+  border-radius: 50%;
+  color: #fff;
+}
+
+.previous-item { margin-right: 20px; }
+.next-item { margin-left: 20px; }
+
+.react-confirm-alert {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-ui {
+  padding: 10px;
+  background: #263238;
+  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
+  color: #ff9100;
+  border-radius: 10px;
+  min-width: 250px;
+  position: absolute;
+  top: 10%;
+}
+
+.custom-ui > .heading {
+  margin-bottom: 5px;
+  padding: 5px;
+  font-size: 18px;
+  color: #fff;
+  border-bottom: 1px solid #9e9e9e;
+}
+
+.custom-ui > h1 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.custom-ui > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-ui > div > button {
+  width: 100px;
+  padding: 2px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  margin: 5px;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+  font-size: 14px;
+}
+
+.custom-ui > div > button.yes {
+  background-color: #e53935;
+  border-color: transparent;
+}
+
+.custom-ui > div > button.cancel {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.dropzone-container {
+  display: flex;
+  margin: 20px;
+  font-family: inherit;
+  flex-direction: column;
+  flex: 1;
+}
+
+.dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 2px dashed #b9d4d1;
+  border-radius: 12px;
+  background-color: #fafdfc;
+  cursor: pointer;
+}
+
+.disabled { color: #bdbdbd; }
+
+.react-number-format-input,
+.react-number-format-input-left {
+  border: 1px solid #cfe3e0;
+  border-radius: 9px;
+  padding: .5rem .8rem;
+  width: 100%;
+}
+
+.react-number-format-input { text-align: right; }
+.input-read-only { background-color: #eef5f4; text-align: right; }
+
+.ExcelTable2007 {
+  border: 1px solid #cfe3e0;
+  border-width: 1px 0 0 1px;
+  font-size: 11pt;
+  font-family: Calibri, sans-serif;
+  font-weight: 100;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.ExcelTable2007 TH {
+  background: #e9f5f3;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid #c7deda;
+  border-width: 0 1px 1px 0;
+  height: 17px;
+}
+
+.ExcelTable2007 TD {
+  border: 1px solid #d7e5e4;
+  border-width: 0 1px 1px 0;
+  background-color: white;
+  padding: 4px;
+}
+
+@media (max-width: 900px) {
+  .bizen-legacy-page {
+    min-height: calc(100vh - 55px) !important;
+    padding: 18px 14px 28px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    background: linear-gradient(180deg, #f8fbfb 0%, #eef6f5 100%);
+  }
+
+  .bizen-legacy-page {
+    padding: 16px 10px 24px !important;
+  }
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style type="text/css">
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+
+            .data-heading {
+                font-weight: bold;
+            }
+
+            .container {
+                align-content: center;
+                grid-row-gap: 10px;
+                padding: 10px 40px;
+            }
+
+            .container-82 {
+                display: grid; 
+                grid-template-columns: 80% 20%;
+                max-width: 100%;
+            }
+
+            .container-55 {
+                display: grid; 
+                grid-template-columns: 50% 50%;
+                max-width: 100%;
+            }
+
+            .container-622 {
+                display: grid; 
+                grid-template-columns: 60% 20% 20%;
+                max-width: 100%;
+            }
+
+            .container-433 {
+                display: grid; 
+                grid-template-columns: 40% 30% 30%;
+                max-width: 100%;  
+            }
+
+            .container-523 {
+                display: grid; 
+                grid-template-columns: 50% 20% 30%;
+                max-width: 100%;  
+            }
+
+            .container-73 {
+                display: grid; 
+                grid-template-columns: 70% 30%;
+                max-width: 100%;
+            }
+
+            .container-25x4 {
+                display: grid; 
+                grid-template-columns: 25% 25% 25% 25% ;
+                max-width: 100%;
+            }
+
+            .header-text {
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+            .small-header-text {
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            table {
+                display: table;
+                border-collapse: collapse;
+                text-indent: initial;
+                border-spacing: 2px;
+                border-color: black;
+            }
+
+            .table {
+                width: 100%;
+                /*margin-top: 5px;*/
+                /*margin-bottom: 1rem;*/
+                color: #212529;
+            }
+
+            .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+                color: #44BC2C;
+            }
+
+            .table th, .table td {
+                vertical-align: top;
+            }
+
+            tr > td {
+                text-align: center;
+                align-items: center;
+                vertical-align:middle !important;
+                font-size: 11px;
+                border-top: 1px solid #000000;
+                border-bottom: 1px solid #000000;
+                border-left: 1px solid #000000;
+                border-right: 1px solid #000000;
+            }
+
+            tr.heading > td {
+                background-color:#000000;
+                color: #ffffff;
+                font-size: 11px;
+                border-top: 1px solid #FFFFFF;
+                border-bottom: 1px solid #FFFFFF;
+                border-left: 1px solid #FFFFFF;
+                border-right: 1px solid #FFFFFF;
+            }
+
+            td.center {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            td.grayBg {
+                background-color: #D9D9D9;
+                border-top: 1px solid #D9D9D9;
+                border-bottom: 1px solid #D9D9D9;
+                border-left: 1px solid #D9D9D9;
+                border-right: 1px solid #D9D9D9;
+            }
+
+            td.blackDotWhiteBg {
+                background-image: radial-gradient(#212121 20%, transparent 20%);
+                background-position: -50px -50px;
+                background-size: 5px 5px;
+                border-top: 1px solid #FFFFFF;
+                border-bottom: 1px solid #FFFFFF;
+                border-left: 1px solid #FFFFFF;
+                border-right: 1px solid #FFFFFF;
+            }
+
+            .fontSize-14 {
+                font-size: 14px;
+            }
+
+            .fontSize-16 {
+                font-size: 16px;
+            }
+
+            .fontSize-18 {
+                font-size: 18px;
+            }
+
+            .mt-10 {
+                margin-top: 10px;
+            }
+
+            .mt-20 {
+                margin-top: 20px;
+            }
+
+            .mt-40 {
+                margin-top: 40px;
+            }
+
+            .mt-60 {
+                margin-top: 60px;
+            }
+
+            .mt-80 {
+                margin-top: 80px;
+            }
+
+            .my-40 {
+                margin-top: 40px;
+                margin-bottom: 40px;
+            }
+
+            .ml-2 {
+                margin-left: 2px;
+            }
+
+            .ml-20 {
+                margin-left: 20px;
+            }
+
+            .p-2 {
+                padding: 2px;
+            }
+
+            .p-5 {
+                padding: 5px;
+            }
+
+            .p-10 {
+                padding: 10px;
+            }
+
+            .pl-20 {
+                padding-left: 20px;
+            }
+
+            .pl-80 {
+                padding-left: 80px;
+            }
+
+            .degree {
+                font-size: 8px;
+                position: relative;
+                top: -3px;
+            }
+
+            .upper-text {
+                position: relative;
+                top: -5px;  
+            }
+
+            @media print {
+                .pagebreak {
+                    page-break-before: always;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div style="display:block;" class="fontSize-16">
+                <div>
+                    <b>{{{company_name}}}</b>
+                </div>
+                <div>
+                    <span>Điện thoại: </span><b>{{{company_phone}}}</b>
+                </div>
+            </div>
+            <div class="text-center my-40">
+                <b class="fontSize-18">PHIẾU XUẤT HÀNG</b>
+            </div>
+
+            <div class="display:block">
+                <div><span>Khách hàng:</span><b class="ml-2">{{{customer_name}}}</b></div>
+                <div><span>Ngày xuất:</span><b class="ml-2">{{{export_date}}}</b></div>
+                <div><span>Ghi chú:</span><b class="ml-2">{{{description}}}</b></div>
+            </div>
+
+            <table style="width: 100%" class="mt-20">
+                <colgroup>
+                    <col style="width: 5%"/>
+                    <col style="width: 40%"/>
+                    <col style="width: 20%"/>
+                    <col style="width: 15%"/>
+                    <col style="width: 20%"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên vật tư</th>
+                        <th>Đơn giá (VNĐ)</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#export_items}}
+                        <tr>
+                            <td><div style="text-align: left;" class="fontSize-14 p-2">{{{index}}}</div></td>
+                            <td><div style="text-align: left;" class="fontSize-14 p-2">{{{item_name}}}</div></td>
+                            <td><div style="float: right; align-content: center" class="fontSize-14 p-2">{{{price}}}</div></td>
+                            <td><div style="float: right; align-content: center" class="fontSize-14 p-2">{{{quantity}}}</div></td>
+                            <td><div style="float: right; align-content: center" class="fontSize-14 p-2">{{{totalMoney}}}</div></td>
+                        </tr>
+                    {{/export_items}}
+                </tbody>
+            </table>
+
+            <div class="display:block mt-10" style="text-align: right;">
+                <div><span>Tổng tiền:</span><b class="ml-2">{{{total_money}}} VNĐ</b></div>
+            </div>
+
+            <div style="float: right; text-align: center;" class="mt-20">
+                <div>Ngày <b>{{{day}}}</b> tháng <b>{{{month}}}</b> năm <b>{{{year}}}</b></div>
+                <div>Ký và ghi rõ họ tên</div>
+            </div>
+        </div>
+    </body>
+</html>
