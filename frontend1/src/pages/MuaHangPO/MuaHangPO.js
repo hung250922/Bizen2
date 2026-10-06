@@ -268,7 +268,9 @@ function MuaHangPO() {
                                     'Form mẫu 2 (PR)',
                                     'Form mẫu 3 (KHDH PR POT)',
                                     'Form mẫu 4 (PO) Cân đối tồn kho',
-                                    'Form mẫu 5 (PO) Nhà cung cấp'
+                                    'Form mẫu 5 (PO) Nhà cung cấp',
+                                    'Form mẫu 6 (PO) Đặt hàng'
+
                                 ].map(type => (
                                     <option key={type} value={type}>
                                         {type}

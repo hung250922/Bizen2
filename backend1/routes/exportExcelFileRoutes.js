@@ -18,6 +18,7 @@ const { createSO_PRForm1ExcelFile } = require('../utils/mua_hang_po/so_pr_form_1
 const { createPRForm2ExcelFile } = require('../utils/mua_hang_po/pr_form_2');
 const { createKHDH_PR_POT_Form3_ExcelFile } = require('../utils/mua_hang_po/khdh_pr_pot_form_3');
 const { createPO_Form4_ExcelFile } = require('../utils/mua_hang_po/form_4');
+const { createForm6POExcelFile } = require('../utils/mua_hang_po/form_6');
 const { getTenantToken } = require("../controllers/larksuite");
 const BIZEN_CATERING_BASE_ID = "TO6Zw7lxJi1hFtkcCetjcct5pNc";
 const THUC_DON_TUAN_TABLE_ID = "tblcesBeBMwmAFFn";
@@ -158,11 +159,12 @@ const getKTBuoc11Datas = async(TENANT_TOKEN, client_code, date, ca, site) => {
 
         //console.log("---- GiayKiemDich", datas[i]["fields"]["Giấy kiểm dịch"]?.["value"]?.[0] || "")
         result.push({ 
-            Ngay, KhachHang, Ca, CoCauSuatAn, NguyenVatLieu, DinhMucNguyenLieu, DonViTinh, DonViTinhMuaHang, DonGia, 
-            TongSoPhan, TongKhoiLuongYeuCauSanXuat, 
-            TenCoSo, DiaChi, DienThoai, NguoiGiaoHang, ChungTuHoaDon, 
-            GiayDangKyVeSinhThuY, GiayKiemDich, HaoHut, DanhSachCacSite, SoLuongCacSite
-        });
+    Ngay, KhachHang, Ca, CoCauSuatAn, NguyenVatLieu,
+    DinhMucNguyenLieu, DinhMucQuyDoi, DonViTinh, DonViTinhMuaHang, DonGia, 
+    TongSoPhan, TongKhoiLuongYeuCauSanXuat, 
+    TenCoSo, DiaChi, DienThoai, NguoiGiaoHang, ChungTuHoaDon, 
+    GiayDangKyVeSinhThuY, GiayKiemDich, HaoHut, DanhSachCacSite, SoLuongCacSite
+});
     }
 
     return result;
@@ -1019,7 +1021,132 @@ const get_MuaHangPO_Form5_Datas = async(TENANT_TOKEN, date) => {
 
 //     return result;
 // }
+const get_MuaHangPO_Form6_Datas = async (TENANT_TOKEN, date) => {
+    const GIAO_HANG_FORM6_URL =
+        `https://open.larksuite.com/open-apis/bitable/v1/apps/${BIZEN_CATERING_BASE_ID}/tables/${GIAO_HANG_FORM5_TABLE_ID}/records/search`;
 
+    let _conditions = [];
+
+    if(date) {
+        _conditions.push({
+            "field_name": "Ngày",
+            "operator": "is",
+            "value": [
+                "ExactDate",
+                `${new Date(date).getTime()}`
+            ]
+        });
+    }
+
+    console.log("---- _conditions Form6", _conditions);
+
+    const listGiaoHang_Form6_Res = await axios.post(
+        GIAO_HANG_FORM6_URL,
+        {
+            "field_names": [
+                "Mã giao hàng",
+                "Trạng thái",
+                "Mã đặt hàng",
+                "Ref POT",
+                "Ngày",
+                "Nhà cung cấp",
+                "Tên hàng",
+                "Đơn vị tính",
+                "Khối lượng nhập hàng theo đơn",
+                "Khối lượng hàng trả lại",
+                "Khối lượng hàng nhận được thực tế",
+                "Kho nhận hàng",
+                "Ngày giờ muốn nhận hàng"
+            ],
+            "filter": {
+                "conditions": _conditions,
+                "conjunction": "and"
+            }
+        },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${TENANT_TOKEN}`
+            }
+        }
+    );
+
+    console.log(
+        "---- listGiaoHang_Form6_Res",
+        listGiaoHang_Form6_Res
+    );
+
+    const datas =
+        listGiaoHang_Form6_Res.data.data?.items || [];
+
+    let result = [];
+
+    for(let i = 0; i < datas.length; i++) {
+
+        let MaGiaoHang =
+            datas[i]["fields"]["Mã giao hàng"];
+
+        let TrangThai =
+            datas[i]["fields"]["Trạng thái"]?.["value"]?.[0] || "";
+
+        let MaDatHang =
+            datas[i]["fields"]["Mã đặt hàng"]?.[0]?.["text"] || "";
+
+        let RefPOT =
+            datas[i]["fields"]["Ref POT"]?.["value"]?.[0];
+
+        let Ngay =
+            dateFormat(
+                "dd/MM/yyyy",
+                new Date(
+                    datas[i]["fields"]["Ngày"]?.["value"]?.[0]
+                )
+            );
+
+        let TenHang =
+            datas[i]["fields"]["Tên hàng"]?.["value"]?.[0] || "";
+
+        let DonViTinh =
+            datas[i]["fields"]["Đơn vị tính"]?.["value"]?.[0] || "";
+
+        let KhoiLuongNhapHangTheoDon =
+            datas[i]["fields"]["Khối lượng nhập hàng theo đơn"]?.["value"]?.[0];
+
+        let KhoiLuongHangTraLai =
+            datas[i]["fields"]["Khối lượng hàng trả lại"];
+
+        let KhoiLuongHangNhanDuocThucTe =
+            datas[i]["fields"]["Khối lượng hàng nhận được thực tế"]?.["value"]?.[0];
+
+        let KhoNhanHang =
+            datas[i]["fields"]["Kho nhận hàng"]?.["value"]?.[0];
+
+        let NgayGioMuonNhanHang =
+            dateFormat(
+                "dd/MM/yyyy hh:mm",
+                new Date(
+                    datas[i]["fields"]["Ngày giờ muốn nhận hàng"]?.["value"]?.[0]
+                )
+            );
+
+        result.push({
+            MaGiaoHang,
+            TrangThai,
+            MaDatHang,
+            RefPOT,
+            Ngay,
+            TenHang,
+            DonViTinh,
+            KhoiLuongNhapHangTheoDon,
+            KhoiLuongHangTraLai,
+            KhoiLuongHangNhanDuocThucTe,
+            NgayGioMuonNhanHang,
+            KhoNhanHang
+        });
+    }
+
+    return result;
+};
 module.exports = (router) => {
     router.post(`/export_excel_file/kiem_thuc_ba_buoc`, authController.isBasicAuthAuthenticated, async(req, res) => {
         try {
@@ -1091,7 +1218,36 @@ module.exports = (router) => {
             });
         }
     });
+    router.post(`/larksuite/giay_di_cho`, async(req, res) => {
+    try {
+        console.log("---- larksuite/giay_di_cho req.body", req.body);
 
+        const { client_code, date, ca, site } = req.body;
+        const TENANT_TOKEN = await getTenantToken();
+
+        const ktBuoc11Datas = await getKTBuoc11Datas(
+            TENANT_TOKEN,
+            client_code,
+            date,
+            ca,
+            site
+        );
+
+        console.log("---- ktBuoc11Datas", ktBuoc11Datas);
+
+        return res.json({
+            data: ktBuoc11Datas,
+            error: null
+        });
+    } catch(error) {
+        console.log("---- larksuite/giay_di_cho error", error);
+
+        return res.json({
+            data: null,
+            error: error
+        });
+    }
+});
     router.post(`/export_excel_file/giay_di_cho`, async(req, res) => {
         try {
             console.log("---- export excel req.body", req.body);
@@ -1177,18 +1333,44 @@ module.exports = (router) => {
                     });
                     break;
                 case "Form mẫu 5 (PO) Nhà cung cấp":
-                    let PO_Form5_datas = await get_MuaHangPO_Form5_Datas(TENANT_TOKEN, date);
-                    console.log("---- PO_Form5_datas", PO_Form5_datas);
-                    // const workbookForm5 = await createGiaoHang_Form5_ExcelFile({
-                    //     client_codes: client_codes, 
-                    //     date: dateFormat("dd/MM/yyyy", new Date(date))
-                    // }, PO_Form5_datas);
-                    // workbookForm5.xlsx.write(res).then(function (data) {
-                    //     res.end();
-                    // });
-                    break;
-                default:
-                    throw new Error("Unknown PO type");
+    let PO_Form5_datas = await get_MuaHangPO_Form5_Datas(
+        TENANT_TOKEN,
+        date
+    );
+
+    console.log("---- PO_Form5_datas", PO_Form5_datas);
+
+    // const workbookForm5 = await createGiaoHang_Form5_ExcelFile({
+    //     client_codes: client_codes, 
+    //     date: dateFormat("dd/MM/yyyy", new Date(date))
+    // }, PO_Form5_datas);
+    // workbookForm5.xlsx.write(res).then(function (data) {
+    //     res.end();
+    // });
+    break;
+
+
+case "Form mẫu 6 (PO) Đặt hàng":
+    let PO_Form6_datas = await get_MuaHangPO_Form5_Datas(
+        TENANT_TOKEN,
+        date
+    );
+
+    console.log("---- PO_Form6_datas", PO_Form6_datas);
+
+    const workbookForm6 = await createForm6POExcelFile(
+        PO_Form6_datas
+    );
+
+    workbookForm6.xlsx.write(res).then(function (data) {
+        res.end();
+    });
+
+    break;
+
+
+default:
+    throw new Error("Unknown PO type");
             }
 
             // // *** Form 5
